@@ -79,6 +79,7 @@ private:
 
 	//GRAPHICS PIPELINE
 	void CreateGraphicsPipeline();
+	VkShaderModule CreatingShaderModule( const std::vector<char>& code );
 
 	// --- GETTER ---
 	// --------------
