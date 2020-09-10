@@ -344,6 +344,23 @@ void HelloTriangleApp::CreateGraphicsPipeline()
 	VkShaderModule vertShaderModule = CreatingShaderModule( vertCode );
 	VkShaderModule fragShaderModule = CreatingShaderModule( fragCode );
 
+	// Creating shader stage info
+	// --------------------------
+	VkPipelineShaderStageCreateInfo vertStageInfo{};
+	vertStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+	vertStageInfo.stage = VK_SHADER_STAGE_VERTEX_BIT;
+	vertStageInfo.module = vertShaderModule;
+	vertStageInfo.pName = "main";
+
+	VkPipelineShaderStageCreateInfo fragStageInfo{};
+	fragStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+	fragStageInfo.stage = VK_SHADER_STAGE_FRAGMENT_BIT;
+	fragStageInfo.module = fragShaderModule;
+	fragStageInfo.pName = "main";
+	// --------------------------
+
+	VkPipelineShaderStageCreateInfo shaderStages[] = { vertStageInfo, fragStageInfo };
+
 	vkDestroyShaderModule( device, vertShaderModule, nullptr );
 	vkDestroyShaderModule( device, fragShaderModule, nullptr );
 }
