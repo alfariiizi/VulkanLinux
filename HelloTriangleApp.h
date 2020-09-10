@@ -77,6 +77,9 @@ private:
 	//IMAGE VIEWS
 	void CreateImageViews();
 
+	//GRAPHICS PIPELINE
+	void CreateGraphicsPipeline();
+
 	// --- GETTER ---
 	// --------------
 	std::vector<const char*> GetRequiredExtension();
@@ -90,6 +93,7 @@ private:
 	VkSurfaceFormatKHR ChooseSwapSurfaceFormat( const std::vector<VkSurfaceFormatKHR>& availableSurfaceFormats );
 	VkPresentModeKHR ChooseSwapPresentMode( const std::vector<VkPresentModeKHR>& availablePresentModes );
 	VkExtent2D ChooseSwapExtent( const VkSurfaceCapabilitiesKHR& capabilities );
+	std::vector<char> ReadFile( const std::string& filename );
 	// -------------
 
 	// --- CHECKER ---

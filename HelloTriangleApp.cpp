@@ -1,5 +1,6 @@
 #include "HelloTriangleApp.h"
 #include <algorithm>
+#include <fstream>
 
 void HelloTriangleApp::Run()
 {
@@ -335,6 +336,12 @@ void HelloTriangleApp::CreateImageViews()
 	}
 }
 
+void HelloTriangleApp::CreateGraphicsPipeline()
+{
+	auto vertCode = ReadFile( "Shaders/vert.spv" );
+	auto fragCode = ReadFile( "Shdaers/frag.spv" );
+}
+
 std::vector<const char*> HelloTriangleApp::GetRequiredExtension()
 {
 	uint32_t glfwExtensionsCount = 0U;
@@ -489,6 +496,23 @@ VkExtent2D HelloTriangleApp::ChooseSwapExtent( const VkSurfaceCapabilitiesKHR& c
 		actualExtent.height = std::clamp( actualExtent.height, capabilities.minImageExtent.height, capabilities.maxImageExtent.height );
 		return actualExtent;
 	}
+}
+
+std::vector<char> HelloTriangleApp::ReadFile( const std::string& filename )
+{
+	std::ifstream in( filename, std::ios::ate | std::ios::binary );
+	if( !in )
+	{
+		throw std::runtime_error( "Failed to open shader file" );
+	}
+
+	size_t fileSize = static_cast<size_t>(in.tellg());
+	std::vector<char> buffer( fileSize );
+	in.seekg( 0 );
+	in.read( buffer.data(), fileSize );
+	
+	in.close();
+	return buffer;
 }
 
 bool HelloTriangleApp::CheckExtensionProperties( 
